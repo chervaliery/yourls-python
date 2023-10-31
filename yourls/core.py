@@ -80,6 +80,23 @@ class YOURLSAPIMixin(object):
 
         return url
 
+    def list(self):
+        """List all URL
+
+        Returns:
+            ShortenedURL[]: List of Shortened URL and associated data.
+
+        Raises:
+            requests.exceptions.HTTPError: Generic HTTP Error
+        """
+        data = dict(action='list')
+        jsondata = self._api_request(params=data)
+        urls = []
+        for url in jsondata['result']:
+            urls.append(_json_to_shortened_url(url, url['shorturl']))
+
+        return urls
+
     def expand(self, short):
         """Expand short URL or keyword to long URL.
 
