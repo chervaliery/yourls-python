@@ -97,6 +97,19 @@ class YOURLSAPIMixin(object):
 
         return urls
 
+    def delete(self, keyword):                 
+        """Delete URL by keyword 
+
+        Returns:   
+            Int: Number of deleted URL                 
+                                                         
+        Raises:                          
+            requests.exceptions.HTTPError: Generic HTTP Error
+        """     
+        data = dict(action='delete', keyword=keyword)          
+        jsondata = self._api_request(params=data)
+        return jsondata['result']
+
     def expand(self, short):
         """Expand short URL or keyword to long URL.
 
